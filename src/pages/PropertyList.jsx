@@ -98,57 +98,65 @@ function PropertyList() {
           </h3>
         </div>
 
-        <div className="overflow-x-auto">
-          <table className="min-w-full divide-y divide-slate-200 text-left text-sm">
+        <div className="hidden md:block overflow-x-auto">
+          <table className="min-w-full divide-y divide-slate-200 text-left text-xs sm:text-sm">
             <thead className="bg-slate-950 text-white">
               <tr>
-                <th className="px-4 py-3">ID</th>
-                <th className="px-4 py-3">Title</th>
-                <th className="px-4 py-3">Type</th>
-                <th className="px-4 py-3">Price</th>
-                <th className="px-4 py-3">Location</th>
-                <th className="px-4 py-3">Status</th>
-                <th className="px-4 py-3">Actions</th>
+                <th className="px-2 sm:px-4 py-2 sm:py-3">ID</th>
+                <th className="px-2 sm:px-4 py-2 sm:py-3">Title</th>
+                <th className="px-2 sm:px-4 py-2 sm:py-3 hidden sm:table-cell">
+                  Type
+                </th>
+                <th className="px-2 sm:px-4 py-2 sm:py-3">Price</th>
+                <th className="px-2 sm:px-4 py-2 sm:py-3 hidden md:table-cell">
+                  Location
+                </th>
+                <th className="px-2 sm:px-4 py-2 sm:py-3 hidden lg:table-cell">
+                  Status
+                </th>
+                <th className="px-2 sm:px-4 py-2 sm:py-3">Actions</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-200 bg-white">
               {properties.map((property) => (
                 <tr key={property.propertyId}>
-                  <td className="px-4 py-4 font-medium text-slate-800">
+                  <td className="px-2 sm:px-4 py-2 sm:py-4 font-medium text-slate-800 text-xs sm:text-sm">
                     {property.propertyId}
                   </td>
-                  <td className="px-4 py-4 text-slate-700">
+                  <td className="px-2 sm:px-4 py-2 sm:py-4 text-slate-700 text-xs sm:text-sm">
                     {property.propertyTitle}
                   </td>
-                  <td className="px-4 py-4 text-slate-700">
+                  <td className="px-2 sm:px-4 py-2 sm:py-4 text-slate-700 text-xs sm:text-sm hidden sm:table-cell">
                     {property.propertyType}
                   </td>
-                  <td className="px-4 py-4 text-slate-700">{property.price}</td>
-                  <td className="px-4 py-4 text-slate-700">
+                  <td className="px-2 sm:px-4 py-2 sm:py-4 text-slate-700 text-xs sm:text-sm">
+                    {property.price}
+                  </td>
+                  <td className="px-2 sm:px-4 py-2 sm:py-4 text-slate-700 text-xs sm:text-sm hidden md:table-cell">
                     {property.location}
                   </td>
-                  <td className="px-4 py-4 text-slate-700">
+                  <td className="px-2 sm:px-4 py-2 sm:py-4 text-slate-700 text-xs sm:text-sm hidden lg:table-cell">
                     {property.status}
                   </td>
-                  <td className="px-4 py-4 space-x-2">
+                  <td className="px-2 sm:px-4 py-2 sm:py-4 space-x-1 sm:space-x-2 flex flex-wrap">
                     <button
                       type="button"
                       onClick={() => handleView(property)}
-                      className="rounded-2xl border border-slate-300 bg-white px-3 py-2 text-xs font-medium text-slate-700 hover:bg-slate-100"
+                      className="rounded-2xl border border-slate-300 bg-white px-2 sm:px-3 py-1 sm:py-2 text-xs font-medium text-slate-700 hover:bg-slate-100"
                     >
                       View
                     </button>
                     <button
                       type="button"
                       onClick={() => handleStartEdit(property)}
-                      className="rounded-2xl border border-amber-300 bg-amber-50 px-3 py-2 text-xs font-medium text-amber-700 hover:bg-amber-100"
+                      className="rounded-2xl border border-amber-300 bg-amber-50 px-2 sm:px-3 py-1 sm:py-2 text-xs font-medium text-amber-700 hover:bg-amber-100"
                     >
                       Edit
                     </button>
                     <button
                       type="button"
                       onClick={() => handleDelete(property.propertyId)}
-                      className="rounded-2xl border border-rose-300 bg-rose-50 px-3 py-2 text-xs font-medium text-rose-700 hover:bg-rose-100"
+                      className="rounded-2xl border border-rose-300 bg-rose-50 px-2 sm:px-3 py-1 sm:py-2 text-xs font-medium text-rose-700 hover:bg-rose-100"
                     >
                       Delete
                     </button>
@@ -157,6 +165,78 @@ function PropertyList() {
               ))}
             </tbody>
           </table>
+        </div>
+        <div className="grid gap-4 md:hidden">
+          {properties.map((property) => (
+            <div
+              key={property.propertyId}
+              className="rounded-3xl border border-slate-200 bg-white p-4 shadow-sm"
+            >
+              <div className="flex flex-col gap-3 text-sm text-slate-700">
+                <div>
+                  <p className="text-sm font-semibold text-slate-900">
+                    {property.propertyTitle}
+                  </p>
+                  <p className="mt-1 text-xs text-slate-600">
+                    ID: {property.propertyId}
+                  </p>
+                </div>
+                <div className="grid gap-2">
+                  <div>
+                    <p className="text-xs uppercase tracking-[0.24em] text-slate-500">
+                      Type
+                    </p>
+                    <p className="mt-1 text-slate-700">
+                      {property.propertyType || "-"}
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-xs uppercase tracking-[0.24em] text-slate-500">
+                      Price
+                    </p>
+                    <p className="mt-1 text-slate-700">{property.price}</p>
+                  </div>
+                  <div>
+                    <p className="text-xs uppercase tracking-[0.24em] text-slate-500">
+                      Location
+                    </p>
+                    <p className="mt-1 text-slate-700">
+                      {property.location || "-"}
+                    </p>
+                  </div>
+                  <div>
+                    <p className="text-xs uppercase tracking-[0.24em] text-slate-500">
+                      Status
+                    </p>
+                    <p className="mt-1 text-slate-700">{property.status}</p>
+                  </div>
+                </div>
+              </div>
+              <div className="mt-4 flex gap-2">
+                <button
+                  type="button"
+                  onClick={() => handleView(property)}
+                  className="flex-1 rounded-2xl bg-slate-900 px-3 py-2 text-xs font-medium text-white hover:bg-slate-800"
+                >
+                  View
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handleStartEdit(property)}
+                  className="flex-1 rounded-2xl bg-amber-400 px-3 py-2 text-xs font-semibold text-slate-900 hover:bg-amber-500"
+                >
+                  Edit
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handleDelete(property.propertyId)}
+                  className="flex-1 rounded-2xl bg-rose-500 px-3 py-2 text-xs font-medium text-white hover:bg-rose-600"
+                >
+                  Delete
+                </button>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
 
